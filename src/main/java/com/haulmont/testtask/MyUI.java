@@ -11,6 +11,8 @@ import com.vaadin.ui.HorizontalLayout;
 
 import com.haulmont.testtask.gui.WorkingPanel;
 import com.haulmont.testtask.gui.ControlBlock;
+import com.haulmont.testtask.gui.ModalWindow;
+
 
 
 
@@ -31,32 +33,16 @@ public class MyUI extends UI {
         WorkingPanel clientsPanel = new WorkingPanel("50%", "КЛИЕНТЫ");
         WorkingPanel ordersPanel = new WorkingPanel("50%", "ЗАКАЗЫ");
         
-        ControlBlock clientEditBlock = new ControlBlock();
+        ControlBlock clientEditBlock = new ControlBlock(this);
         clientsPanel.addComponent(clientEditBlock);
         
-        ControlBlock orderEditBlock = new ControlBlock();
+        ControlBlock orderEditBlock = new ControlBlock(this);
         ordersPanel.addComponent(orderEditBlock);
-        
-     
-       // setContent(topPanelLayout);
-     /*   
-        final TextField name = new TextField();
-        name.setCaption("Type your name here:");
-     
-        Button button = new Button("Click Me");
-        button.addClickListener( e -> {
-            layout.addComponent(new Label("Thanks " + name.getValue() 
-                    + ", it works!"));
-        });
-        
-        layout.addComponents(topPanelLayout, name, button);
-     */   
+    
         layout.addComponents(clientsPanel, ordersPanel);
-        //layout.setMargin(true);
         layout.setSpacing(true);
+        setContent(layout);
         
-       setContent(layout);
-      
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

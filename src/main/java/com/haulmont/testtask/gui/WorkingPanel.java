@@ -8,9 +8,10 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class WorkingPanel extends VerticalLayout{
     
-    protected Label header = null;
+    private Label header = null;
     
     public WorkingPanel (String width, String panelHeader){
+        super();
         if (panelHeader != null) {
             header = new Label(panelHeader);
         }
@@ -18,7 +19,7 @@ public class WorkingPanel extends VerticalLayout{
         
     }
     
-    protected final void init(String width) {
+    private void init(String width) {
         setWidth(width);
         setSpacing(true);
         setMargin(true);

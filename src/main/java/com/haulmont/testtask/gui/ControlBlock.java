@@ -2,23 +2,27 @@ package com.haulmont.testtask.gui;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.UI;
 
 /*
- * Класс блока управления с тремя кнопками и списком
+ * Класс блока управления элементами модели с тремя кнопками и списком
  * @author striped
  */
 public class ControlBlock extends HorizontalLayout{
    
-    protected Button addButton = null;
-    protected Button editButton = null;
-    protected Button delButton = null;
+    private Button addButton = null;
+    private Button editButton = null;
+    private Button delButton = null;
     
+    private UI UI = null;
     
-    public ControlBlock() {
+    public ControlBlock(UI UI) {
+        super();
+        this.UI = UI;
         init();
     }
     
-    protected final void init() {
+    private void init() {
        
         //Основная панель с вертикальным выравниванием
         WorkingPanel generalPanel = new WorkingPanel("100%", null);
@@ -32,9 +36,14 @@ public class ControlBlock extends HorizontalLayout{
         addButton = new Button("Добавить");
         editButton = new Button("Редактировать");
         delButton = new Button("Удалить");
+        
+        addButton.addClickListener((Button.ClickEvent event) -> {
+            ModalWindow mw = new ClientEditWindow(null, " -> Добавить");
+            UI.addWindow(mw);
+        });
+        
         buttonsLayout.addComponents(addButton, editButton, delButton);
         
-        //Добавляем в основную панель панель с кнопками
         generalPanel.addComponent(buttonsLayout);
         
         addComponent(generalPanel);
