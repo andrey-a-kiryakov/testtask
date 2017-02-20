@@ -1,5 +1,6 @@
 package com.haulmont.testtask;
 
+import com.haulmont.testtask.db.HSQLDBConnect;
 import com.haulmont.testtask.gui.ClientControlBlock;
 import com.haulmont.testtask.gui.ClientEditWindow;
 import javax.servlet.annotation.WebServlet;
@@ -46,7 +47,14 @@ public class MyUI extends UI {
         layout.setSpacing(true);
         setContent(layout);
         
-          
+        HSQLDBConnect test = new HSQLDBConnect();
+        if (!test.loadDriver()) return;
+        if (!test.getConnection()) return;     
+  
+        test.createTable();
+        test.fillTable();
+        test.printTable();
+        test.closeConnection();
         
     }
 
