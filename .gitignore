@@ -1,7 +1,2 @@
-.idea
-target/
-*.iml
-*.ipr
-*.iws
 /src/main/webapp/VAADIN/
 /src/main/resources/
