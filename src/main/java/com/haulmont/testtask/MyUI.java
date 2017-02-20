@@ -1,5 +1,7 @@
 package com.haulmont.testtask;
 
+import com.haulmont.testtask.gui.ClientControlBlock;
+import com.haulmont.testtask.gui.ClientEditWindow;
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
@@ -10,8 +12,9 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.HorizontalLayout;
 
 import com.haulmont.testtask.gui.WorkingPanel;
-import com.haulmont.testtask.gui.ControlBlock;
-import com.haulmont.testtask.gui.ModalWindow;
+import com.haulmont.testtask.gui.AbstractControlBlock;
+import com.haulmont.testtask.gui.AbstractModalWindow;
+import com.haulmont.testtask.gui.OrderControlBlock;
 
 
 
@@ -33,15 +36,17 @@ public class MyUI extends UI {
         WorkingPanel clientsPanel = new WorkingPanel("50%", "КЛИЕНТЫ");
         WorkingPanel ordersPanel = new WorkingPanel("50%", "ЗАКАЗЫ");
         
-        ControlBlock clientEditBlock = new ControlBlock(this);
-        clientsPanel.addComponent(clientEditBlock);
+        AbstractControlBlock clientControlBlock = new ClientControlBlock();
+        clientsPanel.addComponent(clientControlBlock);
         
-        ControlBlock orderEditBlock = new ControlBlock(this);
-        ordersPanel.addComponent(orderEditBlock);
+        AbstractControlBlock orderControlBlock = new OrderControlBlock();
+        ordersPanel.addComponent(orderControlBlock);
     
         layout.addComponents(clientsPanel, ordersPanel);
         layout.setSpacing(true);
         setContent(layout);
+        
+          
         
     }
 

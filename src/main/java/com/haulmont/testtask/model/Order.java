@@ -4,7 +4,7 @@ package com.haulmont.testtask.model;
  *
  * @author striped
  */
-public class Order extends ModelElement{
+public class Order extends AbstractElement{
     
     
 }

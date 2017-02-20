@@ -2,8 +2,8 @@ package com.haulmont.testtask.model;
 
 /**
  *
- * @author striped
+ * @author 
  */
-public abstract class ModelElement {
+public abstract class AbstractElement {
     
 }
