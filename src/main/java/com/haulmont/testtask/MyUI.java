@@ -1,6 +1,7 @@
 package com.haulmont.testtask;
 
-import com.haulmont.testtask.dao.SingleConnection;
+import com.haulmont.testtask.dao.HSQLDBConnection;
+import com.haulmont.testtask.dao.HSQLDBDriverLoader;
 import com.haulmont.testtask.gui.ClientControlBlock;
 import javax.servlet.annotation.WebServlet;
 
@@ -45,8 +46,13 @@ public class MyUI extends UI {
         layout.setSpacing(true);
         setContent(layout);
         
-        SingleConnection c = SingleConnection.getInstance();
-        c.closeConnection();
+        HSQLDBDriverLoader dr = HSQLDBDriverLoader.getInstance();
+        
+        HSQLDBConnection c = new HSQLDBConnection();
+        if (c.connect()) {
+         c.closeConnection();
+           
+        }
         
         /*HSQLDBConnect test = new HSQLDBConnect();
         if (!test.loadDriver()) return;
