@@ -1,8 +1,7 @@
 package com.haulmont.testtask;
 
-import com.haulmont.testtask.db.HSQLDBConnect;
+import com.haulmont.testtask.dao.SingleConnection;
 import com.haulmont.testtask.gui.ClientControlBlock;
-import com.haulmont.testtask.gui.ClientEditWindow;
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
@@ -14,7 +13,6 @@ import com.vaadin.ui.HorizontalLayout;
 
 import com.haulmont.testtask.gui.WorkingPanel;
 import com.haulmont.testtask.gui.AbstractControlBlock;
-import com.haulmont.testtask.gui.AbstractModalWindow;
 import com.haulmont.testtask.gui.OrderControlBlock;
 
 
@@ -47,7 +45,10 @@ public class MyUI extends UI {
         layout.setSpacing(true);
         setContent(layout);
         
-        HSQLDBConnect test = new HSQLDBConnect();
+        SingleConnection c = SingleConnection.getInstance();
+        c.closeConnection();
+        
+        /*HSQLDBConnect test = new HSQLDBConnect();
         if (!test.loadDriver()) return;
         if (!test.getConnection()) return;     
   
@@ -55,7 +56,7 @@ public class MyUI extends UI {
         test.fillTable();
         test.printTable();
         test.closeConnection();
-        
+        */
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

@@ -19,43 +19,44 @@ public class HSQLDBConnect {
     public boolean loadDriver() {
         try {   
             Class.forName("org.hsqldb.jdbc.JDBCDriver");
-            } 
+        } 
         catch (ClassNotFoundException e) {
             new Notification("WARNING", "Driver not load", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
-            e.printStackTrace(); 
             return false;
         }  
-  
+        new Notification("OK", "Driver load!", Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page.getCurrent());
         return true;
     }
 
- public boolean getConnection() {
-  
-  try {
-   String path = "E:\\Java\\hsqldb\\data\\";
-   String dbname = "mydb";
-   String connectionString = "jdbc:hsqldb:file:"+path+dbname;
-   String login = "testtask";
-   String password = "testtask";
-   connection = DriverManager.getConnection(connectionString, login, password);
-   
-  } catch (SQLException e) {
-   System.out.println("Соединение не создано");
-   e.printStackTrace();
-   return false;
-  }
-  return true;
- }
+    public boolean getConnection() {
+        try {
+            String path = "mypath/";
+            String dbname = "testdb";
+            String connectionString = "jdbc:hsqldb:file:" + path + dbname;
+            String login = "SA";
+            String password = "";
+            connection = DriverManager.getConnection(connectionString, login, password);
+            connection.getSchema();
+            new Notification("OK", "Соединение установлено " + System.getenv("JAVA_HOME"), Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page.getCurrent());
+        } 
+        catch (SQLException e) {
+            new Notification("WARNING", "Соединение не создано", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
+            
+            return false;
+        }
+        return true;
+    }
  
- public void createTable() {
-  try {
-   Statement statement = connection.createStatement();   
-   String sql = "CREATE TABLE testTable (id IDENTITY , value VARCHAR(255))";  
-   statement.executeUpdate(sql);
-  } catch (SQLException e) {
-   
-  }
- }
+    public void createTable() {
+        try {
+            Statement statement = connection.createStatement();   
+            String sql = "CREATE CACHED TABLE testTable (id IDENTITY , value VARCHAR(255))";  
+            statement.executeUpdate(sql);
+        } 
+        catch (SQLException e) {
+            new Notification("WARNING", e.getMessage(), Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
+        }
+    }
  
  public void fillTable() {
   Statement statement;
