@@ -14,12 +14,17 @@ public abstract class AbstractModalWindow extends Window  {
     private final Button cancelButton;
     
     protected final WorkingPanel generalPanel;
+    protected final AbstractControlBlock controlBlock;
     
     public abstract void okButtonAction();
     public abstract void cancelButtonAction();
     
-    public AbstractModalWindow(String header){
+    private boolean editMode;
+    
+    public AbstractModalWindow(AbstractControlBlock controlBlock, String header){
         super(header);
+        editMode = false;
+        this.controlBlock = controlBlock;
         okButton = new Button("ОК");
         cancelButton = new Button("Отмена");
         generalPanel = new WorkingPanel("100%", null);
@@ -52,4 +57,13 @@ public abstract class AbstractModalWindow extends Window  {
         
         
     }
+    
+    public void setEditMode(boolean editMode) {
+        this.editMode = editMode;
+    }
+    
+    public boolean getEditMode() {
+        return editMode;
+    }
+    
 }

@@ -10,8 +10,8 @@ public class OrderEditWindow extends AbstractModalWindow{
     
     private Order order;
     
-    public OrderEditWindow(Order element, String header) {
-        super("Заказ " + header);
+    public OrderEditWindow(AbstractControlBlock controlBlock, Order element, String header) {
+        super(controlBlock, "Заказ " + header);
         
     }
 

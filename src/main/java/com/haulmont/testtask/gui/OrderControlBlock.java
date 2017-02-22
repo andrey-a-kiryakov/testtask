@@ -1,5 +1,7 @@
 package com.haulmont.testtask.gui;
 
+import com.haulmont.testtask.model.AbstractElement;
+
 /**
  *
  * @author Alex
@@ -8,8 +10,8 @@ public class OrderControlBlock extends AbstractControlBlock {
 
     @Override
     public void addButtonAction() {
-        AbstractModalWindow mw = new OrderEditWindow(null, " -> Добавить");
-       this.getUI().addWindow(mw);
+        //AbstractModalWindow mw = new OrderEditWindow(null, " -> Добавить");
+        //this.getUI().addWindow(mw);
     }
 
     @Override
@@ -19,6 +21,10 @@ public class OrderControlBlock extends AbstractControlBlock {
 
     @Override
     public void delButtonAction() {
+        
+    }
+    
+    public void addItemToTable (AbstractElement item) {
         
     }
     

@@ -1,5 +1,6 @@
 package com.haulmont.testtask.gui;
 
+import com.haulmont.testtask.model.AbstractElement;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
@@ -19,6 +20,8 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
     public abstract void addButtonAction();
     public abstract void editButtonAction();
     public abstract void delButtonAction();
+    
+    public abstract void addItemToTable (AbstractElement item);
     
     public AbstractControlBlock() {
         super();
@@ -54,7 +57,7 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
            delButtonAction();
         });
         
-        table.setWidth("100%");
+        table.setWidth("400px");
         table.setSelectable(true);
         table.setImmediate(true);
         

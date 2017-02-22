@@ -9,9 +9,9 @@ public class Client extends AbstractElement {
     private String sourname;
     private String name;
     private String middlename;
-    private Integer tel;
+    private String tel;
     
-    public Client (String sourname, String name, String middlename, Integer tel) {
+    public Client (String sourname, String name, String middlename, String tel) {
         this.sourname = sourname;
         this.name = name;
         this.middlename = middlename;
@@ -19,6 +19,11 @@ public class Client extends AbstractElement {
     }
     
     public Client (){
+        
+        this.sourname = "";
+        this.name = "";
+        this.middlename = "";
+        this.tel = "";
         
     }
 
@@ -46,11 +51,11 @@ public class Client extends AbstractElement {
         this.middlename = middlename;
     }
 
-    public Integer getTel() {
+    public String getTel() {
         return tel;
     }
 
-    public void setTel(Integer tel) {
+    public void setTel(String tel) {
         this.tel = tel;
     }
     
