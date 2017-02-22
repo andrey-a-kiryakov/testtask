@@ -4,9 +4,9 @@ import com.haulmont.testtask.model.Order;
 
 /**
  *
- * @author Alex
+ * @author Kiryakov Andrey
  */
-public class OrderEditWindow extends AbstractModalWindow{
+public class OrderEditWindow extends AbstractEditWindow{
     
     private Order order;
     

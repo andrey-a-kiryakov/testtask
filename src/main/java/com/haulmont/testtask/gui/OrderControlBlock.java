@@ -4,7 +4,7 @@ import com.haulmont.testtask.model.AbstractElement;
 
 /**
  *
- * @author Alex
+ * @author Kiryakov Andrey
  */
 public class OrderControlBlock extends AbstractControlBlock {
 

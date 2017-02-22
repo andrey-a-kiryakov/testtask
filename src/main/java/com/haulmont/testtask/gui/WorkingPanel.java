@@ -4,7 +4,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 /*
  * Класс основной рабочей панели c вертикальным выравниванием и заголовком
- * @author striped
+ * @author Kiryakov Andrey
  */
 public class WorkingPanel extends VerticalLayout{
     

@@ -12,23 +12,17 @@ import java.sql.SQLException;
  */
 public final class HSQLDBConnection extends AbstractConnection {
         
-    private static final String DB_PATH = "jdbc:hsqldb:file:mydbs/";
-    private static final String DB_NAME = "testdb";
+    private static final String DB_URL = "jdbc:hsqldb:file:mydbs/testdb";
     private static final String DB_LOGIN = "SA";
     private static final String DB_PASSWORD = "";
     
     private Connection connection;
     
-    
-    
-    
-    
     @Override
-    public boolean connect () {
+    public final boolean connect () {
         try {
-            connection = DriverManager.getConnection(DB_PATH + DB_NAME, DB_LOGIN, DB_PASSWORD);   
-        } 
-        catch (SQLException e) {
+            connection = DriverManager.getConnection(DB_URL, DB_LOGIN, DB_PASSWORD);   
+        } catch (SQLException e) {
             new Notification("WARNING", "Соединение не создано", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
             
             return false;
@@ -37,13 +31,12 @@ public final class HSQLDBConnection extends AbstractConnection {
     }
         
     @Override
-    public Connection getConnection (){
+    public final Connection getConnection (){
         return connection;
     }
     
     @Override
     public final boolean closeConnection() {
-  
         try {
             connection.createStatement().execute("SHUTDOWN");
             connection.close();

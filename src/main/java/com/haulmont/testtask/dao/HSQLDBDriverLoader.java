@@ -3,9 +3,9 @@ package com.haulmont.testtask.dao;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 
-/*
+/**
  * Класс загрузчика драйвера HSQLDB. Реализует паттерн Singleton.
- * @author Alex
+ * @author Kiryakov Andrey
  */
 public class HSQLDBDriverLoader {
    
@@ -26,10 +26,8 @@ public class HSQLDBDriverLoader {
     private void loadDriver() {
         try {   
             Class.forName(DRIVER_NAME);
-        } 
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             new Notification("WARNING", "Driver not load", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
         }  
-        
     }
 }

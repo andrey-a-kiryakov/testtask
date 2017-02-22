@@ -8,9 +8,9 @@ import com.vaadin.ui.TextField;
 
 /**
  *
- * @author striped
+ * @author Kiryakov Andrey
  */
-public class ClientEditWindow extends AbstractModalWindow{
+public class ClientEditWindow extends AbstractEditWindow{
     
     private final Client client;
     
@@ -52,13 +52,13 @@ public class ClientEditWindow extends AbstractModalWindow{
             client.setName(nameTextField.getValue());
             client.setTel(telTextField.getValue());
             
-            if (!this.getEditMode()) {
-                this.controlBlock.addItemToTable(client);
+            if (!this.isEditMode()) {
+                getControlBlock().addItemToTable(client);
                 close();
             }
             else {
-                controlBlock.table.getItem(controlBlock.table.getValue()).getItemProperty("ФИО").setValue(client);
-                controlBlock.table.getItem(controlBlock.table.getValue()).getItemProperty("Телефон").setValue(client.getTel());
+                getControlBlock().getTable().getItem(getControlBlock().getTable().getValue()).getItemProperty("ФИО").setValue(client);
+                getControlBlock().getTable().getItem(getControlBlock().getTable().getValue()).getItemProperty("Телефон").setValue(client.getTel());
                 close();
             }
             
@@ -95,7 +95,7 @@ public class ClientEditWindow extends AbstractModalWindow{
         telTextField.addValidator(telValidator);
         telTextField.setValue(client.getTel());
         
-        generalPanel.addComponents(sournameTextField, nameTextField, middlenameTextField, telTextField);
+        getGeneralPanel().addComponents(sournameTextField, nameTextField, middlenameTextField, telTextField);
         
         
     }

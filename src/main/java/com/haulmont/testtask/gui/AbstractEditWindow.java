@@ -6,22 +6,23 @@ import com.vaadin.ui.HorizontalLayout;
 
 /**
  *
- * @author striped
+ * @author Kiryakov Andrey
  */
-public abstract class AbstractModalWindow extends Window  {
+public abstract class AbstractEditWindow extends Window  {
        
     private final Button okButton;
     private final Button cancelButton;
     
-    protected final WorkingPanel generalPanel;
-    protected final AbstractControlBlock controlBlock;
+    private final WorkingPanel generalPanel;
+
+    private final AbstractControlBlock controlBlock;
     
     public abstract void okButtonAction();
     public abstract void cancelButtonAction();
     
     private boolean editMode;
     
-    public AbstractModalWindow(AbstractControlBlock controlBlock, String header){
+    public AbstractEditWindow(AbstractControlBlock controlBlock, String header){
         super(header);
         editMode = false;
         this.controlBlock = controlBlock;
@@ -58,12 +59,25 @@ public abstract class AbstractModalWindow extends Window  {
         
     }
     
-    public void setEditMode(boolean editMode) {
+    /**
+     * Устанавливает режим работы.Если editMode = true - режим редактирования,
+     * если false - режим создания нового AbstractElement.
+     * @param editMode
+     */
+    public void setMode(boolean editMode) {
         this.editMode = editMode;
     }
     
-    public boolean getEditMode() {
+    public boolean isEditMode() {
         return editMode;
+    }
+    
+    public WorkingPanel getGeneralPanel() {
+        return generalPanel;
+    }
+
+    public AbstractControlBlock getControlBlock() {
+        return controlBlock;
     }
     
 }

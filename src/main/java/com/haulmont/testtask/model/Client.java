@@ -2,7 +2,7 @@ package com.haulmont.testtask.model;
 
 /**
  *
- * @author striped
+ * @author Kiryakov Andrey
  */
 public class Client extends AbstractElement {
     

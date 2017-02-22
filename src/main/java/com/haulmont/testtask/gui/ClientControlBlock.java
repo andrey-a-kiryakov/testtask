@@ -3,12 +3,10 @@ package com.haulmont.testtask.gui;
 import com.haulmont.testtask.model.AbstractElement;
 import com.haulmont.testtask.model.Client;
 import com.vaadin.data.Item;
-import com.vaadin.server.Page;
-import com.vaadin.ui.Notification;
 
 /**
  *
- * @author Alex
+ * @author Kiryakov Andrey
  */
 public class ClientControlBlock extends AbstractControlBlock {
 
@@ -19,19 +17,19 @@ public class ClientControlBlock extends AbstractControlBlock {
 
     @Override
     public void addButtonAction() {
-       AbstractModalWindow mw = new ClientEditWindow(this, new Client(), " -> Добавить");
-       mw.setEditMode(false);
+       AbstractEditWindow mw = new ClientEditWindow(this, new Client(), " -> Добавить");
+       mw.setMode(false);
        this.getUI().addWindow(mw);
     }
 
     @Override
     public void editButtonAction() {
         
-            if (table.getValue() != null) {
+            if (getTable().getValue() != null) {
                 
                 //Item row = table.getItem(table.getValue());
-                AbstractModalWindow mw = new ClientEditWindow(this, (Client)table.getItem(table.getValue()).getItemProperty("ФИО").getValue(), " -> Редактировать");
-                mw.setEditMode(true);
+                AbstractEditWindow mw = new ClientEditWindow(this, (Client)getTable().getItem(getTable().getValue()).getItemProperty("ФИО").getValue(), " -> Редактировать");
+                mw.setMode(true);
                 this.getUI().addWindow(mw);                
             }
     }
@@ -42,15 +40,15 @@ public class ClientControlBlock extends AbstractControlBlock {
     }
     
     private void init() {
-        table.addContainerProperty("ФИО", Client.class, null);
-        table.addContainerProperty("Телефон",  String.class, null);
+        getTable().addContainerProperty("ФИО", Client.class, null);
+        getTable().addContainerProperty("Телефон",  String.class, null);
         
     }
     
     @Override
     public void addItemToTable (AbstractElement item) {
         
-        Item row = table.getItem(table.addItem());
+        Item row = getTable().getItem(getTable().addItem());
         row.getItemProperty("ФИО").setValue(item);
         row.getItemProperty("Телефон").setValue(((Client)item).getTel());
       

@@ -28,24 +28,7 @@ public class HSQLDBConnect {
         return true;
     }
 
-    public boolean getConnection() {
-        try {
-            String path = "mypath/";
-            String dbname = "testdb";
-            String connectionString = "jdbc:hsqldb:file:" + path + dbname;
-            String login = "SA";
-            String password = "";
-            connection = DriverManager.getConnection(connectionString, login, password);
-            connection.getSchema();
-            new Notification("OK", "Соединение установлено " + System.getenv("JAVA_HOME"), Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page.getCurrent());
-        } 
-        catch (SQLException e) {
-            new Notification("WARNING", "Соединение не создано", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
-            
-            return false;
-        }
-        return true;
-    }
+    
  
     public void createTable() {
         try {

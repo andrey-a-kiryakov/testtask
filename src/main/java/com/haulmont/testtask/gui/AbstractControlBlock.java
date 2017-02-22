@@ -5,9 +5,9 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
 
-/*
+/**
  * Абстрактный класс блока управления элементами модели с тремя кнопками и списком
- * @author striped
+ * @author Kiryakov Andrey
  */
 public abstract class AbstractControlBlock extends HorizontalLayout{
    
@@ -15,8 +15,8 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
     private final Button editButton;
     private final Button delButton;
     
-    protected final Table table;
-    
+    private final Table table;
+
     public abstract void addButtonAction();
     public abstract void editButtonAction();
     public abstract void delButtonAction();
@@ -65,5 +65,9 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
         generalPanel.addComponents(buttonsLayout, table);
         addComponent(generalPanel);
         
-   }    
+   }
+    
+    public Table getTable() {
+        return table;
+    }    
 }
