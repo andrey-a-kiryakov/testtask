@@ -1,6 +1,7 @@
 package com.haulmont.testtask;
 
-import com.haulmont.testtask.dao.AbstractController;
+import com.haulmont.testtask.dao.AbstractDAO;
+import com.haulmont.testtask.dao.ClientDAO;
 import com.haulmont.testtask.dao.HSQLDBConnection;
 import com.haulmont.testtask.dao.HSQLDBDriverLoader;
 import com.haulmont.testtask.gui.ClientControlBlock;
@@ -50,22 +51,11 @@ public class MyUI extends UI {
         HSQLDBDriverLoader dr = HSQLDBDriverLoader.getInstance();
         
         HSQLDBConnection c = new HSQLDBConnection();
-        AbstractController.createProjectsTables();
+        AbstractDAO.createProjectsTables();
+        clientControlBlock.addItemsToTable(ClientDAO.getAll());
+        //clientDAO.getAll();
+               
         
-        /*if (c.connect()) {
-         c.closeConnection();
-           
-        }*/
-        
-        /*HSQLDBConnect test = new HSQLDBConnect();
-        if (!test.loadDriver()) return;
-        if (!test.getConnection()) return;     
-  
-        test.createTable();
-        test.fillTable();
-        test.printTable();
-        test.closeConnection();
-        */
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

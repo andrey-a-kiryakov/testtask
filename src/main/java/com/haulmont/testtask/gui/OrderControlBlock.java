@@ -1,6 +1,9 @@
 package com.haulmont.testtask.gui;
 
 import com.haulmont.testtask.model.AbstractElement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 /**
  *
@@ -28,4 +31,7 @@ public class OrderControlBlock extends AbstractControlBlock {
         
     }
     
+    public void addItemsToTable(List itemsList) {
+        
+    }
 }

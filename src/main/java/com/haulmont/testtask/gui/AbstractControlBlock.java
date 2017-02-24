@@ -4,6 +4,8 @@ import com.haulmont.testtask.model.AbstractElement;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * Абстрактный класс блока управления элементами модели с тремя кнопками и списком
@@ -14,7 +16,6 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
     private final Button addButton;
     private final Button editButton;
     private final Button delButton;
-    
     private final Table table;
 
     public abstract void addButtonAction();
@@ -22,6 +23,8 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
     public abstract void delButtonAction();
     
     public abstract void addItemToTable (AbstractElement item);
+    public abstract void addItemsToTable (List itemsList);
+    
     
     public AbstractControlBlock() {
         super();

@@ -20,10 +20,11 @@ public class Client extends AbstractElement {
     
     public Client (){
         
-        this.sourname = "";
-        this.name = "";
-        this.middlename = "";
-        this.tel = "";
+        setId (-1);
+        sourname = "";
+        name = "";
+        middlename = "";
+        tel = "";
         
     }
 

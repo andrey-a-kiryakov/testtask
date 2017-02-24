@@ -1,5 +1,6 @@
 package com.haulmont.testtask.gui;
 
+import com.haulmont.testtask.dao.ClientDAO;
 import com.haulmont.testtask.model.Client;
 import com.vaadin.data.validator.RegexpValidator;
 import com.vaadin.server.Page;
@@ -11,7 +12,6 @@ import com.vaadin.ui.TextField;
  * @author Kiryakov Andrey
  */
 public class ClientEditWindow extends AbstractEditWindow{
-    
     private final Client client;
     
     private final TextField  sournameTextField;
@@ -45,15 +45,15 @@ public class ClientEditWindow extends AbstractEditWindow{
         if (namesValidator.isValid(sournameTextField.getValue()) && namesValidator.isValid(nameTextField.getValue()) 
                 && namesValidator.isValid(middlenameTextField.getValue()) && telValidator.isValid(telTextField.getValue())
                     && !sournameTextField.isEmpty() && !nameTextField.isEmpty() && !middlenameTextField.isEmpty() && !telTextField.isEmpty()) {
-            
-            
             client.setSourname(sournameTextField.getValue());
             client.setMiddlename(middlenameTextField.getValue());
             client.setName(nameTextField.getValue());
             client.setTel(telTextField.getValue());
             
             if (!this.isEditMode()) {
-                getControlBlock().addItemToTable(client);
+                if (ClientDAO.create(client)) {
+                    getControlBlock().addItemToTable(client);
+                }
                 close();
             }
             else {
@@ -61,12 +61,9 @@ public class ClientEditWindow extends AbstractEditWindow{
                 getControlBlock().getTable().getItem(getControlBlock().getTable().getValue()).getItemProperty("Телефон").setValue(client.getTel());
                 close();
             }
-            
-            //new Notification("WARNING", client.toString(), Notification.TYPE_HUMANIZED_MESSAGE, true).show(Page.getCurrent());
-            
         } 
         else {
-            new Notification("WARNING", "Одно или несколько полей содержат неправильные данные<br /> "
+            new Notification("ВНИМАНИЕ!", "Одно или несколько полей содержат неправильные данные<br /> "
                     + "либо незаполнены", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
         }
     }
@@ -77,8 +74,6 @@ public class ClientEditWindow extends AbstractEditWindow{
     }
     
     private void init() {
-        
-       
         sournameTextField.setRequired(true);
         sournameTextField.addValidator(namesValidator);
         sournameTextField.setValue(client.getSourname());
@@ -95,9 +90,6 @@ public class ClientEditWindow extends AbstractEditWindow{
         telTextField.addValidator(telValidator);
         telTextField.setValue(client.getTel());
         
-        getGeneralPanel().addComponents(sournameTextField, nameTextField, middlenameTextField, telTextField);
-        
-        
+        getGeneralPanel().addComponents(sournameTextField, nameTextField, middlenameTextField, telTextField);   
     }
- 
 }
