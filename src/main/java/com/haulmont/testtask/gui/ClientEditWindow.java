@@ -5,6 +5,7 @@ import com.haulmont.testtask.model.Client;
 import com.vaadin.data.validator.RegexpValidator;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 
 /**
@@ -13,7 +14,7 @@ import com.vaadin.ui.TextField;
  */
 public class ClientEditWindow extends AbstractEditWindow{
     private final Client client;
-    
+   
     private final TextField  sournameTextField;
     private final TextField  nameTextField;
     private final TextField  middlenameTextField;
@@ -22,10 +23,8 @@ public class ClientEditWindow extends AbstractEditWindow{
     private final RegexpValidator namesValidator;
     private final RegexpValidator telValidator;
     
-    
     public ClientEditWindow(AbstractControlBlock controlBlock, Client element, String header) {
         super(controlBlock, "Клиент " + header);
-        
         client = element;
         
         sournameTextField = new TextField("Фамилия");
@@ -37,7 +36,6 @@ public class ClientEditWindow extends AbstractEditWindow{
         telValidator = new RegexpValidator("^[0-9]{7,18}$", true, "Это поле должно содержать от 7 до 18 цифр");
         
         init ();
-        
     }
     
     @Override
@@ -53,14 +51,21 @@ public class ClientEditWindow extends AbstractEditWindow{
             if (!this.isEditMode()) {
                 if (ClientDAO.create(client)) {
                     getControlBlock().addItemToTable(client);
+                    close();
+                } else {
+                    new Notification("ВНИМАНИЕ!", "Не удалось создать нового клиента", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
                 }
-                close();
-            }
-            else {
-                getControlBlock().getTable().getItem(getControlBlock().getTable().getValue()).getItemProperty("ФИО").setValue(client);
-                getControlBlock().getTable().getItem(getControlBlock().getTable().getValue()).getItemProperty("Телефон").setValue(client.getTel());
-                close();
-            }
+            } else {
+                if (ClientDAO.update(client)) {
+                    Table table = getControlBlock().getTable();
+                    
+                    table.getItem(table.getValue()).getItemProperty("ФИО").setValue(client);
+                    table.getItem(table.getValue()).getItemProperty("Телефон").setValue(client.getTel());
+                    close();
+                } else{
+                    new Notification("ВНИМАНИЕ!", "Не удалось изменить данные клиента", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
+                }
+            }   
         } 
         else {
             new Notification("ВНИМАНИЕ!", "Одно или несколько полей содержат неправильные данные<br /> "

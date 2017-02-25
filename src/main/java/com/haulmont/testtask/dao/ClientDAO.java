@@ -2,8 +2,6 @@ package com.haulmont.testtask.dao;
 
 import com.haulmont.testtask.model.AbstractElement;
 import com.haulmont.testtask.model.Client;
-import com.vaadin.server.Page;
-import com.vaadin.ui.Notification;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,7 +40,6 @@ public class ClientDAO {
                 }    
              }
         } catch (SQLException e) {
-            new Notification("WARNING", e.getMessage(), Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
         }
         return resultList;
     }
@@ -54,7 +51,25 @@ public class ClientDAO {
 
     
     public static boolean update(AbstractElement element) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       try {
+            AbstractConnection connection = new HSQLDBConnection();
+            if (connection.connect()) {
+                try (PreparedStatement statement = connection.getConnection().prepareStatement(
+                        "UPDATE clients SET (sourname, name, middlename, tel) = (?, ?, ?, ?) WHERE ID=" + Long.toString(element.getId()))){
+                    statement.setString(1, ((Client)element).getSourname());
+                    statement.setString(2, ((Client)element).getName());
+                    statement.setString(3, ((Client)element).getMiddlename());
+                    statement.setString(4, ((Client)element).getTel());
+                    statement.executeUpdate();
+                    statement.close();
+                } finally {
+                    connection.closeConnection();
+                }    
+             }
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
     }
 
    
@@ -74,12 +89,14 @@ public class ClientDAO {
         }
         return true;
     }
+    
 
     public static boolean create(AbstractElement element) {
         try {
             AbstractConnection connection = new HSQLDBConnection();
             if (connection.connect()) {
-                try (PreparedStatement statement = connection.getConnection().prepareStatement("INSERT INTO clients (sourname, name, middlename, tel) VALUES (?, ?, ?, ?)", new String[] {"ID"})){
+                try (PreparedStatement statement = connection.getConnection().prepareStatement(
+                        "INSERT INTO clients (sourname, name, middlename, tel) VALUES (?, ?, ?, ?)", new String[] {"ID"})){
                     statement.setString(1, ((Client)element).getSourname());
                     statement.setString(2, ((Client)element).getName());
                     statement.setString(3, ((Client)element).getMiddlename());
@@ -94,7 +111,7 @@ public class ClientDAO {
                 } finally {
                     connection.closeConnection();
                 }    
-             }
+            }
         } catch (SQLException e) {
             return false;
         }

@@ -11,21 +11,11 @@ public class Client extends AbstractElement {
     private String middlename;
     private String tel;
     
-    public Client (String sourname, String name, String middlename, String tel) {
-        this.sourname = sourname;
-        this.name = name;
-        this.middlename = middlename;
-        this.tel = tel;
-    }
-    
     public Client (){
-        
-        setId (-1);
         sourname = "";
         name = "";
         middlename = "";
         tel = "";
-        
     }
 
     public String getSourname() {
@@ -63,6 +53,5 @@ public class Client extends AbstractElement {
     @Override
     public String toString() {
         return sourname + " " + name + " " + middlename;
-    }
-       
+    }      
 }

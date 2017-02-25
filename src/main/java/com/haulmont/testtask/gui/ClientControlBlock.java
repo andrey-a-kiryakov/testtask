@@ -4,7 +4,8 @@ import com.haulmont.testtask.dao.ClientDAO;
 import com.haulmont.testtask.model.AbstractElement;
 import com.haulmont.testtask.model.Client;
 import com.vaadin.data.Item;
-import java.util.List;
+import com.vaadin.server.Page;
+import com.vaadin.ui.Notification;
 
 /**
  *
@@ -43,6 +44,8 @@ public class ClientControlBlock extends AbstractControlBlock {
             
             if (ClientDAO.delete(client.getId())) {
                 getTable().removeItem(client);
+            } else {
+                new Notification("ВНИМАНИЕ!", "Не удалось удалить клиента", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
             }
         }
     }
@@ -55,12 +58,5 @@ public class ClientControlBlock extends AbstractControlBlock {
     @Override
     public void addItemToTable (AbstractElement item) {
         getTable().addItem(new Object[]{item,((Client)item).getTel()}, item);
-    }   
-
-    @Override
-    public void addItemsToTable(List itemsList) {
-        itemsList.forEach((client) -> {
-            addItemToTable((Client)client);
-        });
-    }
+    }     
 }

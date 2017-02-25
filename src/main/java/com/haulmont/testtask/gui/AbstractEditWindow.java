@@ -9,12 +9,11 @@ import com.vaadin.ui.HorizontalLayout;
  * @author Kiryakov Andrey
  */
 public abstract class AbstractEditWindow extends Window  {
-       
+    public final static String ELEMENTS_WIDTH = "400";   
+    
     private final Button okButton;
     private final Button cancelButton;
-    
     private final WorkingPanel generalPanel;
-
     private final AbstractControlBlock controlBlock;
     
     public abstract void okButtonAction();
@@ -32,9 +31,7 @@ public abstract class AbstractEditWindow extends Window  {
         init();
     }
     
-    
     private void init() {
-                
         setModal(true);
         center();
         setClosable(false);
@@ -42,7 +39,6 @@ public abstract class AbstractEditWindow extends Window  {
         
         final HorizontalLayout buttonsLayout = new HorizontalLayout();
         buttonsLayout.setSpacing(true);
-        buttonsLayout.setMargin(true);
                
         cancelButton.addClickListener((Button.ClickEvent event) -> {
             cancelButtonAction();
@@ -55,8 +51,6 @@ public abstract class AbstractEditWindow extends Window  {
         buttonsLayout.addComponents(okButton, cancelButton);
         generalPanel.addComponent(buttonsLayout);
         setContent(generalPanel);
-        
-        
     }
     
     /**

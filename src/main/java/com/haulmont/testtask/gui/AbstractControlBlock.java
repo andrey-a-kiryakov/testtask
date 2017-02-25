@@ -23,8 +23,6 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
     public abstract void delButtonAction();
     
     public abstract void addItemToTable (AbstractElement item);
-    public abstract void addItemsToTable (List itemsList);
-    
     
     public AbstractControlBlock() {
         super();
@@ -72,5 +70,11 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
     
     public Table getTable() {
         return table;
+    }
+ 
+    public void addItemsToTable(List itemsList) {
+        itemsList.forEach((item) -> {
+            addItemToTable((AbstractElement)item);
+        });
     }    
 }
