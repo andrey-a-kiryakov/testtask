@@ -2,6 +2,8 @@ package com.haulmont.testtask.dao;
 
 import com.haulmont.testtask.model.AbstractElement;
 import com.haulmont.testtask.model.Client;
+import com.haulmont.testtask.model.Order;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author Kiryakov Andrey
  */
-public class ClientDAO extends AbstractDAO{
+public class OrderDAO extends AbstractDAO{
 
     @Override
     public ArrayList getAll() {
@@ -23,16 +25,16 @@ public class ClientDAO extends AbstractDAO{
             AbstractConnection connection = new HSQLDBConnection();
             if (connection.connect()) {
                 try (Statement statement = connection.getConnection().createStatement()){
-                    ResultSet resultSet = statement.executeQuery("SELECT * FROM clients");
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM orders");
                     
                     while (resultSet.next()) {
-                        Client client = new Client();
-                        client.setId(resultSet.getLong("ID"));
+                        Order order = new Order();
+                      /*  client.setId(resultSet.getLong("ID"));
                         client.setMiddlename(resultSet.getString("middlename"));
                         client.setName(resultSet.getString("name"));
                         client.setSourname(resultSet.getString("sourname"));
-                        client.setTel(resultSet.getString("tel"));
-                        resultList.add(client);  
+                        client.setTel(resultSet.getString("tel"));*/
+                        resultList.add(order);  
                     }
                     statement.close();
                 } finally {
@@ -50,11 +52,15 @@ public class ClientDAO extends AbstractDAO{
             AbstractConnection connection = new HSQLDBConnection();
             if (connection.connect()) {
                 try (PreparedStatement statement = connection.getConnection().prepareStatement(
-                        "UPDATE clients SET (sourname, name, middlename, tel) = (?, ?, ?, ?) WHERE ID=" + Long.toString(element.getId()))){
-                    statement.setString(1, ((Client)element).getSourname());
-                    statement.setString(2, ((Client)element).getName());
-                    statement.setString(3, ((Client)element).getMiddlename());
-                    statement.setString(4, ((Client)element).getTel());
+                        "UPDATE orders SET (client_id, description, start_date, end_date, price, "
+                                + "type) VALUES (?, ?, ?, ?, ?, ?) WHERE ID=" + Long.toString(element.getId()))){
+                    statement.setLong(1, ((Order)element).getClientsId());
+                    statement.setString(2, ((Order)element).getDescription());
+                    statement.setDate(3, new Date(((Order)element).getStartDate()));
+                    statement.setDate(4, new Date(((Order)element).getEndDate()));
+                    statement.setFloat(5, ((Order)element).getPrice());
+                    statement.setInt(6, ((Order)element).getStatus());
+                    statement.executeUpdate();
                     statement.executeUpdate();
                     statement.close();
                 } finally {
@@ -73,7 +79,7 @@ public class ClientDAO extends AbstractDAO{
             AbstractConnection connection = new HSQLDBConnection();
             if (connection.connect()) {
                 try (Statement statement = connection.getConnection().createStatement()){
-                    statement.executeUpdate("DELETE FROM clients WHERE ID=" + Long.toString(id));
+                    statement.executeUpdate("DELETE FROM orders WHERE ID=" + Long.toString(id));
                     statement.close();
                 } finally {
                     connection.closeConnection();
@@ -91,13 +97,16 @@ public class ClientDAO extends AbstractDAO{
             AbstractConnection connection = new HSQLDBConnection();
             if (connection.connect()) {
                 try (PreparedStatement statement = connection.getConnection().prepareStatement(
-                        "INSERT INTO clients (sourname, name, middlename, tel) VALUES (?, ?, ?, ?)", new String[] {"ID"})){
-                    statement.setString(1, ((Client)element).getSourname());
-                    statement.setString(2, ((Client)element).getName());
-                    statement.setString(3, ((Client)element).getMiddlename());
-                    statement.setString(4, ((Client)element).getTel());
+                        "INSERT INTO orders (client_id, description, start_date, end_date, price, "
+                                + "type) VALUES (?, ?, ?, ?, ?, ?)", new String[] {"ID"})){
+                    statement.setLong(1, ((Order)element).getClientsId());
+                    statement.setString(2, ((Order)element).getDescription());
+                    statement.setDate(3, new Date(((Order)element).getStartDate()));
+                    statement.setDate(4, new Date(((Order)element).getEndDate()));
+                    statement.setFloat(5, ((Order)element).getPrice());
+                    statement.setInt(6, ((Order)element).getStatus());
                     statement.executeUpdate();
-                                        
+                                                            
                     ResultSet result = statement.getGeneratedKeys();
                     if(result.next()) {
                         element.setId(result.getLong("ID"));

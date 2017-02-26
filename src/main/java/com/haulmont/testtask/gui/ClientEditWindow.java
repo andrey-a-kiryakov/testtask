@@ -47,16 +47,17 @@ public class ClientEditWindow extends AbstractEditWindow{
             client.setMiddlename(middlenameTextField.getValue());
             client.setName(nameTextField.getValue());
             client.setTel(telTextField.getValue());
+            ClientDAO clientDAO = new ClientDAO();
             
             if (!this.isEditMode()) {
-                if (ClientDAO.create(client)) {
+                if (clientDAO.create(client)) {
                     getControlBlock().addItemToTable(client);
                     close();
                 } else {
                     new Notification("ВНИМАНИЕ!", "Не удалось создать нового клиента", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
                 }
             } else {
-                if (ClientDAO.update(client)) {
+                if (clientDAO.update(client)) {
                     Table table = getControlBlock().getTable();
                     
                     table.getItem(table.getValue()).getItemProperty("ФИО").setValue(client);
@@ -66,8 +67,7 @@ public class ClientEditWindow extends AbstractEditWindow{
                     new Notification("ВНИМАНИЕ!", "Не удалось изменить данные клиента", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
                 }
             }   
-        } 
-        else {
+        } else {
             new Notification("ВНИМАНИЕ!", "Одно или несколько полей содержат неправильные данные<br /> "
                     + "либо незаполнены", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
         }
@@ -79,18 +79,22 @@ public class ClientEditWindow extends AbstractEditWindow{
     }
     
     private void init() {
+        sournameTextField.setWidth(ELEMENTS_WIDTH);
         sournameTextField.setRequired(true);
         sournameTextField.addValidator(namesValidator);
         sournameTextField.setValue(client.getSourname());
         
+        nameTextField.setWidth(ELEMENTS_WIDTH);
         nameTextField.setRequired(true);
         nameTextField.addValidator(namesValidator);
         nameTextField.setValue(client.getName());
                 
+        middlenameTextField.setWidth(ELEMENTS_WIDTH);
         middlenameTextField.setRequired(true);
         middlenameTextField.addValidator(namesValidator);
         middlenameTextField.setValue(client.getMiddlename());
                 
+        telTextField.setWidth(ELEMENTS_WIDTH);
         telTextField.setRequired(true);
         telTextField.addValidator(telValidator);
         telTextField.setValue(client.getTel());

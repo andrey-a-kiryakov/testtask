@@ -41,8 +41,9 @@ public class ClientControlBlock extends AbstractControlBlock {
         if (getTable().getValue() != null) {
             Item selectedItem = getTable().getItem(getTable().getValue());
             Client client = (Client)selectedItem.getItemProperty("ФИО").getValue();
+            ClientDAO clientDAO = new ClientDAO();
             
-            if (ClientDAO.delete(client.getId())) {
+            if (clientDAO.delete(client.getId())) {
                 getTable().removeItem(client);
             } else {
                 new Notification("ВНИМАНИЕ!", "Не удалось удалить клиента", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
@@ -51,6 +52,7 @@ public class ClientControlBlock extends AbstractControlBlock {
     }
     
     private void init() {
+        getTable().setWidth("25em");
         getTable().addContainerProperty("ФИО", Client.class, null);
         getTable().addContainerProperty("Телефон",  String.class, null);
     }

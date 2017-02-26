@@ -58,14 +58,12 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
            delButtonAction();
         });
         
-        table.setWidth("400px");
         table.setSelectable(true);
         table.setImmediate(true);
         
         buttonsLayout.addComponents(addButton, editButton, delButton);
         generalPanel.addComponents(buttonsLayout, table);
         addComponent(generalPanel);
-        
    }
     
     public Table getTable() {

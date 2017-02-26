@@ -3,6 +3,7 @@ package com.haulmont.testtask.gui;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  *
@@ -13,9 +14,10 @@ public abstract class AbstractEditWindow extends Window  {
     
     private final Button okButton;
     private final Button cancelButton;
-    private final WorkingPanel generalPanel;
+    private final VerticalLayout generalPanel;
     private final AbstractControlBlock controlBlock;
-    
+    private final HorizontalLayout buttonsLayout;
+            
     public abstract void okButtonAction();
     public abstract void cancelButtonAction();
     
@@ -23,11 +25,13 @@ public abstract class AbstractEditWindow extends Window  {
     
     public AbstractEditWindow(AbstractControlBlock controlBlock, String header){
         super(header);
+        
         editMode = false;
         this.controlBlock = controlBlock;
         okButton = new Button("ОК");
         cancelButton = new Button("Отмена");
-        generalPanel = new WorkingPanel("100%", null);
+        generalPanel = new VerticalLayout();
+        buttonsLayout = new HorizontalLayout();
         init();
     }
     
@@ -36,8 +40,9 @@ public abstract class AbstractEditWindow extends Window  {
         center();
         setClosable(false);
         setResizable(false);
+        generalPanel.setSpacing(true);
+        generalPanel.setMargin(true);
         
-        final HorizontalLayout buttonsLayout = new HorizontalLayout();
         buttonsLayout.setSpacing(true);
                
         cancelButton.addClickListener((Button.ClickEvent event) -> {
@@ -66,7 +71,7 @@ public abstract class AbstractEditWindow extends Window  {
         return editMode;
     }
     
-    public WorkingPanel getGeneralPanel() {
+    public VerticalLayout getGeneralPanel() {
         return generalPanel;
     }
 

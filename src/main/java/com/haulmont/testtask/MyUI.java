@@ -35,8 +35,8 @@ public class MyUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
         final HorizontalLayout layout = new HorizontalLayout();
         
-        WorkingPanel clientsPanel = new WorkingPanel("50%", "КЛИЕНТЫ");
-        WorkingPanel ordersPanel = new WorkingPanel("50%", "ЗАКАЗЫ");
+        WorkingPanel clientsPanel = new WorkingPanel("40%", "КЛИЕНТЫ");
+        WorkingPanel ordersPanel = new WorkingPanel("60%", "ЗАКАЗЫ");
         
         AbstractControlBlock clientControlBlock = new ClientControlBlock();
         clientsPanel.addComponent(clientControlBlock);
@@ -48,13 +48,11 @@ public class MyUI extends UI {
         layout.setSpacing(true);
         setContent(layout);
         
-        HSQLDBDriverLoader dr = HSQLDBDriverLoader.getInstance();
-        
+        HSQLDBDriverLoader.getInstance();
+        ClientDAO clientDAO = new ClientDAO();
         HSQLDBConnection c = new HSQLDBConnection();
         AbstractDAO.createProjectsTables();
-        clientControlBlock.addItemsToTable(ClientDAO.getAll());
-        //clientDAO.getAll();
-               
+        clientControlBlock.addItemsToTable(clientDAO.getAll());
         
     }
 

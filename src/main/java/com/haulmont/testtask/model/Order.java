@@ -8,18 +8,23 @@ import java.util.Date;
  */
 public class Order extends AbstractElement{
     private String description;
-    private long clientsID;
+    private long clientsId;
     private float price;
-    private String startDate;
-    private String endDate;
+   // private Date startDate;
+   // private Date endDate;
+    private long startDate;
+    private long endDate;
+    
     private int status;
 
     public Order() {
         this.description = "";
-        this.clientsID = -1;
-        this.price = 0;
-        this.startDate = "";
-        this.endDate = "";
+        this.clientsId = -1;
+        this.price = (float) 0.01;
+        //this.startDate = new Date();
+        //this.endDate = new Date();
+        this.startDate = new Date().getTime();
+        this.endDate = new Date().getTime();
         this.status = 0;
     }
 
@@ -31,12 +36,12 @@ public class Order extends AbstractElement{
         this.description = description;
     }
 
-    public long getClientsID() {
-        return clientsID;
+    public long getClientsId() {
+        return clientsId;
     }
 
-    public void setClientsID(long clientsID) {
-        this.clientsID = clientsID;
+    public void setClientsId(long clientsID) {
+        this.clientsId = clientsID;
     }
 
     public float getPrice() {
@@ -46,20 +51,36 @@ public class Order extends AbstractElement{
     public void setPrice(float price) {
         this.price = price;
     }
-
-    public String getStartDate() {
+/*
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
+ */   
+    public long getStartDate() {
+        return startDate;
+    }
 
-    public String getEndDate() {
+    public void setStartDate(long startDate) {
+        this.startDate = startDate;
+    }
+/*
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+*/
+    public long getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(long endDate) {
         this.endDate = endDate;
     }
 
@@ -71,6 +92,7 @@ public class Order extends AbstractElement{
         this.status = status;
     }
     
+    @Override
     public String toString(){
         return description;
     }    
