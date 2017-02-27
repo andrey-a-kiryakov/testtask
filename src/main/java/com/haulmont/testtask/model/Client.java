@@ -1,7 +1,7 @@
 package com.haulmont.testtask.model;
 
 /**
- *
+ * Класс представления элементов "Клиент" модели 
  * @author Kiryakov Andrey
  */
 public class Client extends AbstractElement {

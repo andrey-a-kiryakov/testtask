@@ -60,7 +60,7 @@ public class ClientEditWindow extends AbstractEditWindow{
                 if (clientDAO.update(client)) {
                     Table table = getControlBlock().getTable();
                     
-                    table.getItem(table.getValue()).getItemProperty("ФИО").setValue(client);
+                    table.getItem(table.getValue()).getItemProperty("ФИО").setValue(client.toString());
                     table.getItem(table.getValue()).getItemProperty("Телефон").setValue(client.getTel());
                     close();
                 } else{

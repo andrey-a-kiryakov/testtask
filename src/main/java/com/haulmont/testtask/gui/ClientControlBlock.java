@@ -3,7 +3,6 @@ package com.haulmont.testtask.gui;
 import com.haulmont.testtask.dao.ClientDAO;
 import com.haulmont.testtask.model.AbstractElement;
 import com.haulmont.testtask.model.Client;
-import com.vaadin.data.Item;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 
@@ -28,8 +27,7 @@ public class ClientControlBlock extends AbstractControlBlock {
     @Override
     public void editButtonAction() {
         if (getTable().getValue() != null) {
-            Item selectedItem = getTable().getItem(getTable().getValue());
-            AbstractEditWindow mw = new ClientEditWindow(this, (Client)selectedItem.getItemProperty("ФИО").getValue(), " -> Редактировать");
+            AbstractEditWindow mw = new ClientEditWindow(this, (Client)getTable().getValue(), " -> Редактировать");
             
             mw.setMode(true);
             this.getUI().addWindow(mw);                
@@ -39,8 +37,7 @@ public class ClientControlBlock extends AbstractControlBlock {
     @Override
     public void delButtonAction() {
         if (getTable().getValue() != null) {
-            Item selectedItem = getTable().getItem(getTable().getValue());
-            Client client = (Client)selectedItem.getItemProperty("ФИО").getValue();
+            Client client = (Client)getTable().getValue();
             ClientDAO clientDAO = new ClientDAO();
             
             if (clientDAO.delete(client.getId())) {
@@ -53,12 +50,12 @@ public class ClientControlBlock extends AbstractControlBlock {
     
     private void init() {
         getTable().setWidth("25em");
-        getTable().addContainerProperty("ФИО", Client.class, null);
+        getTable().addContainerProperty("ФИО", String.class, null);
         getTable().addContainerProperty("Телефон",  String.class, null);
     }
     
     @Override
     public void addItemToTable (AbstractElement item) {
-        getTable().addItem(new Object[]{item,((Client)item).getTel()}, item);
+        getTable().addItem(new Object[]{item.toString(),((Client)item).getTel()}, item);
     }     
 }

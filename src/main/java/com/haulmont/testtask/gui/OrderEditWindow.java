@@ -5,12 +5,12 @@ import com.haulmont.testtask.dao.OrderDAO;
 import com.haulmont.testtask.model.AbstractElement;
 import com.haulmont.testtask.model.Order;
 import com.haulmont.testtask.model.OrderStatus;
+import com.vaadin.data.Item;
 import com.vaadin.data.validator.RegexpValidator;
 import com.vaadin.server.Page;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import java.util.ArrayList;
@@ -69,12 +69,18 @@ public class OrderEditWindow extends AbstractEditWindow {
                 }
             } else {
                 if (orderDao.update(order)) {
-                    Table table = getControlBlock().getTable();
+                    Item item = getControlBlock().getTable().getItem(getControlBlock().getTable().getValue());
                     
-                    //table.getItem(table.getValue()).getItemProperty("ФИО").setValue(client);
-                    //table.getItem(table.getValue()).getItemProperty("Телефон").setValue(client.getTel());
+                    item.getItemProperty("Клиент").setValue(clientSelect.getValue().toString());
+                    item.getItemProperty("Описание").setValue(order.getDescription());
+                    item.getItemProperty("Дата создания").setValue(new Date(order.getStartDate()));
+                    item.getItemProperty("Дата окончания").setValue(new Date(order.getEndDate()));
+                    item.getItemProperty("Дата окончания").setValue(new Date(order.getEndDate()));
+                    item.getItemProperty("Стоимость").setValue(order.getPrice());
+                    item.getItemProperty("Статус").setValue(new OrderStatus(order.getStatus()).toString());
+                    
                     close();
-                } else{
+                } else {
                     new Notification("ВНИМАНИЕ!", "Не удалось изменить данные заказа", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
                 }
             }

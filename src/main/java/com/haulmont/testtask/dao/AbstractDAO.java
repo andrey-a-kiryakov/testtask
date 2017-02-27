@@ -8,14 +8,13 @@ import java.sql.Statement;
 import java.util.List;
 
 /*
- * Абстрактный класс DAO описывающий общие методы взаимодействия с БД.
+ * Абстрактный класс-обертка для DAO-классов
  * @author Andrey Kiryakov
- * @param <E>
- * @param <K>
  */
 public abstract class AbstractDAO {
     
     public abstract List getAll();
+    public abstract AbstractElement getElementById(long elementId);
     public abstract boolean update(AbstractElement element);
     public abstract boolean delete(long id);
     public abstract boolean create(AbstractElement element);
@@ -40,6 +39,15 @@ public abstract class AbstractDAO {
                     statement.executeUpdate(sql);
                     sql = "INSERT INTO clients (sourname, name, middlename, tel) VALUES ('Сидоров', 'Сидор', 'Сидорович', '8989890')";
                     statement.executeUpdate(sql);
+                    sql = "INSERT INTO orders (client_id, description, start_date, end_date, price, type) VALUES (0, 'Покраска заднего бампера', '2017-02-27', '2017-02-27', 3500, 0)";
+                    statement.executeUpdate(sql);
+                    sql = "INSERT INTO orders (client_id, description, start_date, end_date, price, type) VALUES (1, 'Замена масла', '2017-01-03', '2017-01-04', 1200, 1)";
+                    statement.executeUpdate(sql);
+                    sql = "INSERT INTO orders (client_id, description, start_date, end_date, price, type) VALUES (1, 'Заправка кондиционера', '2017-01-03', '2017-01-04', 1200, 2)";
+                    statement.executeUpdate(sql);
+                    sql = "INSERT INTO orders (client_id, description, start_date, end_date, price, type) VALUES (2, 'Мойка', '2016-08-13', '2016-08-13', 300, 2)";
+                    statement.executeUpdate(sql);
+                    
                     statement.close();
                 } finally {
                     connection.closeConnection();
@@ -49,5 +57,4 @@ public abstract class AbstractDAO {
             new Notification("WARNING", e.getMessage(), Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
         } 
     }
-       
 }

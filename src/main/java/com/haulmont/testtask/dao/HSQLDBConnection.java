@@ -11,7 +11,6 @@ import java.sql.SQLException;
  * @author Andrey Kiryakov
  */
 public final class HSQLDBConnection extends AbstractConnection {
-        
     private static final String DB_URL = "jdbc:hsqldb:file:mydbs/testdb";
     private static final String DB_LOGIN = "SA";
     private static final String DB_PASSWORD = "";
@@ -23,8 +22,6 @@ public final class HSQLDBConnection extends AbstractConnection {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_LOGIN, DB_PASSWORD);   
         } catch (SQLException e) {
-            new Notification("WARNING", "Соединение не создано", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
-            
             return false;
         }
         return true;

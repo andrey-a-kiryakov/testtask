@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
+ * DAO класс для элементов "Клиент"
  * @author Kiryakov Andrey
  */
 public class ClientDAO extends AbstractDAO{
@@ -26,13 +26,7 @@ public class ClientDAO extends AbstractDAO{
                     ResultSet resultSet = statement.executeQuery("SELECT * FROM clients");
                     
                     while (resultSet.next()) {
-                        Client client = new Client();
-                        client.setId(resultSet.getLong("ID"));
-                        client.setMiddlename(resultSet.getString("middlename"));
-                        client.setName(resultSet.getString("name"));
-                        client.setSourname(resultSet.getString("sourname"));
-                        client.setTel(resultSet.getString("tel"));
-                        resultList.add(client);  
+                        resultList.add(resultSetToClient(resultSet));  
                     }
                     statement.close();
                 } finally {
@@ -42,6 +36,27 @@ public class ClientDAO extends AbstractDAO{
         } catch (SQLException e) {
         }
         return resultList;
+    }
+    
+    @Override
+    public AbstractElement getElementById(long elementId) {
+        try {
+            AbstractConnection connection = new HSQLDBConnection();
+            if (connection.connect()) {
+                try (Statement statement = connection.getConnection().createStatement()){
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM clients WHERE ID=" + Long.toString(elementId) );
+                    
+                    while (resultSet.next()) {
+                         return resultSetToClient(resultSet);  
+                    }
+                    statement.close();
+                } finally {
+                    connection.closeConnection();
+                }    
+             }
+        } catch (SQLException e) {
+        }
+        return null;
     }
     
     @Override
@@ -111,5 +126,15 @@ public class ClientDAO extends AbstractDAO{
             return false;
         }
         return true;
-    }   
+    }
+    
+    private Client resultSetToClient(ResultSet resultSet) throws SQLException {
+        Client client = new Client();
+        client.setId(resultSet.getLong("ID"));
+        client.setMiddlename(resultSet.getString("middlename"));
+        client.setName(resultSet.getString("name"));
+        client.setSourname(resultSet.getString("sourname"));
+        client.setTel(resultSet.getString("tel"));
+        return client;
+    }
 }

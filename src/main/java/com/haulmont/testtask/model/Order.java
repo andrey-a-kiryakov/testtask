@@ -3,15 +3,13 @@ package com.haulmont.testtask.model;
 import java.util.Date;
 
 /**
- *
- * @author striped
+ * Класс представления элемента "Заказ" модели
+ * @author Kiryakov Andrey
  */
 public class Order extends AbstractElement{
     private String description;
     private long clientsId;
     private float price;
-   // private Date startDate;
-   // private Date endDate;
     private long startDate;
     private long endDate;
     
@@ -20,9 +18,7 @@ public class Order extends AbstractElement{
     public Order() {
         this.description = "";
         this.clientsId = -1;
-        this.price = (float) 0.01;
-        //this.startDate = new Date();
-        //this.endDate = new Date();
+        this.price = (float) 0.0;
         this.startDate = new Date().getTime();
         this.endDate = new Date().getTime();
         this.status = 0;
@@ -51,15 +47,7 @@ public class Order extends AbstractElement{
     public void setPrice(float price) {
         this.price = price;
     }
-/*
-    public Date getStartDate() {
-        return startDate;
-    }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
- */   
     public long getStartDate() {
         return startDate;
     }
@@ -67,15 +55,7 @@ public class Order extends AbstractElement{
     public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
-/*
-    public Date getEndDate() {
-        return endDate;
-    }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-*/
     public long getEndDate() {
         return endDate;
     }

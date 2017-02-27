@@ -4,7 +4,7 @@ import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 
 /**
- * Класс загрузчика драйвера HSQLDB. Реализует паттерн Singleton.
+ * Класс загрузчика драйвера HSQLDB, реализован паттерн Singleton.
  * @author Kiryakov Andrey
  */
 public class HSQLDBDriverLoader {

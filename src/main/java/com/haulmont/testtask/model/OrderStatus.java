@@ -1,7 +1,7 @@
 package com.haulmont.testtask.model;
 
 /**
- *
+ * Класс для отображения статуса для элементов "Заказ" в гарфическом интерфейсе
  * @author Kiryakov Andrey
  */
 public class OrderStatus {
@@ -27,7 +27,9 @@ public class OrderStatus {
         if (status == 2) {
             return "Принят клиентом";
         }
+        if (status == 3) {
+            return "Любой";
+        }
         return "Запланирован";
-    }
-    
+    }   
 }

@@ -5,7 +5,6 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Абстрактный класс блока управления элементами модели с тремя кнопками и списком
@@ -17,6 +16,7 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
     private final Button editButton;
     private final Button delButton;
     private final Table table;
+    private final WorkingPanel generalPanel;
 
     public abstract void addButtonAction();
     public abstract void editButtonAction();
@@ -27,6 +27,7 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
     public AbstractControlBlock() {
         super();
         
+        generalPanel = new WorkingPanel("100%", null);
         addButton = new Button("Добавить");
         editButton = new Button("Редактировать");
         delButton = new Button("Удалить");
@@ -37,24 +38,21 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
     
     private void init() {
        
-        //Основная панель с вертикальным выравниванием
-        WorkingPanel generalPanel = new WorkingPanel("100%", null);
-        
         //Панель кнопок с горизонтальным выравниванием
         final HorizontalLayout buttonsLayout = new HorizontalLayout();
         
         buttonsLayout.setWidth("100%");
         buttonsLayout.setSpacing(true);
-                
-        addButton.addClickListener((Button.ClickEvent event) -> {
+              
+        addButton.addClickListener(event -> {
            addButtonAction();
         });
         
-        editButton.addClickListener((Button.ClickEvent event) -> {
+        editButton.addClickListener(event -> {
            editButtonAction();
         });
         
-        delButton.addClickListener((Button.ClickEvent event) -> {
+        delButton.addClickListener(event -> {
            delButtonAction();
         });
         
@@ -74,5 +72,9 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
         itemsList.forEach((item) -> {
             addItemToTable((AbstractElement)item);
         });
+    }
+    
+    public WorkingPanel getGeneralPanel() {
+        return generalPanel;
     }    
 }
