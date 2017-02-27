@@ -6,11 +6,12 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
 /**
- *
+ * Абстрактный класс модалного окна редактирования элементов модели
  * @author Kiryakov Andrey
  */
 public abstract class AbstractEditWindow extends Window  {
-    public final static String ELEMENTS_WIDTH = "400";   
+    // ширина полей редактирования в окне   
+    public final static String ELEMENTS_WIDTH = "400"; 
     
     private final Button okButton;
     private final Button cancelButton;
@@ -63,7 +64,7 @@ public abstract class AbstractEditWindow extends Window  {
      * если false - режим создания нового AbstractElement.
      * @param editMode
      */
-    public void setMode(boolean editMode) {
+    public void setEditMode(boolean editMode) {
         this.editMode = editMode;
     }
     
@@ -78,5 +79,4 @@ public abstract class AbstractEditWindow extends Window  {
     public AbstractControlBlock getControlBlock() {
         return controlBlock;
     }
-    
 }

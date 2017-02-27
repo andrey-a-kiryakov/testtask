@@ -18,13 +18,19 @@ import com.vaadin.ui.HorizontalLayout;
 import com.haulmont.testtask.gui.WorkingPanel;
 import com.haulmont.testtask.gui.AbstractControlBlock;
 import com.haulmont.testtask.gui.OrderControlBlock;
+import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.VerticalLayout;
 
 @Theme("mytheme")
 public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        final HorizontalLayout layout = new HorizontalLayout();
+        final VerticalLayout vLayout = new VerticalLayout();
+        final HorizontalLayout hLayout = new HorizontalLayout();
+        vLayout.setMargin(false);
+        vLayout.setSpacing(false);
         
         WorkingPanel clientsPanel = new WorkingPanel("40%", "КЛИЕНТЫ");
         WorkingPanel ordersPanel = new WorkingPanel("60%", "ЗАКАЗЫ");
@@ -35,15 +41,17 @@ public class MyUI extends UI {
         AbstractControlBlock orderControlBlock = new OrderControlBlock();
         ordersPanel.addComponent(orderControlBlock);
     
-        layout.addComponents(clientsPanel, ordersPanel);
-        layout.setSpacing(true);
-        setContent(layout);
+        hLayout.addComponents(clientsPanel, ordersPanel);
+        hLayout.setSpacing(true);
+        vLayout.addComponents(new Label("<div align=center><h2><b>&nbsp;&nbsp;&nbsp;Автомастерская</b> - система ввода и отображения информации о заказах</h2></div>",ContentMode.HTML), hLayout);
+        
+        setContent(vLayout);
         
         HSQLDBDriverLoader.getInstance();
         ClientDAO clientDAO = new ClientDAO();
         OrderDAO orderDAO = new OrderDAO();
         HSQLDBConnection c = new HSQLDBConnection();
-        //AbstractDAO.createProjectsTables();
+        AbstractDAO.createProjectsTables();
         clientControlBlock.addItemsToTable(clientDAO.getAll());
         orderControlBlock.addItemsToTable(orderDAO.getAll());
         

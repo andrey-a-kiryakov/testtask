@@ -18,7 +18,7 @@ import java.util.Date;
 
 
 /**
- *
+ * Класс модального окна редактирования элемента модели "Заказ"
  * @author Kiryakov Andrey
  */
 public class OrderEditWindow extends AbstractEditWindow {

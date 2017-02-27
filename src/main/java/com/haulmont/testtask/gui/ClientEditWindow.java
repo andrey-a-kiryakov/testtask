@@ -9,7 +9,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 
 /**
- *
+ * Класс модального окна редактирования элементов модели "Клиент"
  * @author Kiryakov Andrey
  */
 public class ClientEditWindow extends AbstractEditWindow{

@@ -7,7 +7,7 @@ import com.vaadin.ui.Table;
 import java.util.List;
 
 /**
- * Абстрактный класс блока управления элементами модели с тремя кнопками и списком
+ * Абстрактный класс блока управления элементами модели с тремя кнопками и таблицей
  * @author Kiryakov Andrey
  */
 public abstract class AbstractControlBlock extends HorizontalLayout{
@@ -25,14 +25,11 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
     public abstract void addItemToTable (AbstractElement item);
     
     public AbstractControlBlock() {
-        super();
-        
         generalPanel = new WorkingPanel("100%", null);
         addButton = new Button("Добавить");
         editButton = new Button("Редактировать");
         delButton = new Button("Удалить");
         table = new Table();
-        
         init();
     }
     
@@ -62,7 +59,7 @@ public abstract class AbstractControlBlock extends HorizontalLayout{
         buttonsLayout.addComponents(addButton, editButton, delButton);
         generalPanel.addComponents(buttonsLayout, table);
         addComponent(generalPanel);
-   }
+    }
     
     public Table getTable() {
         return table;

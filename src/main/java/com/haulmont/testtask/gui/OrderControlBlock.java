@@ -11,11 +11,12 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
- *
+ * Класс блока управления элементами модели "Заказ"
  * @author Kiryakov Andrey
  */
 public class OrderControlBlock extends AbstractControlBlock {
@@ -25,12 +26,10 @@ public class OrderControlBlock extends AbstractControlBlock {
     private final Button okFilterButton;
     
     public OrderControlBlock() {
-        
         clientFilter = new TextField("Клиент");
         statusSelectFilter = new ComboBox("Статус заказа");
         descriptionFilter = new TextField("Описание");
         okFilterButton = new Button("Применить фильтр");
-        
         init();
     }
 
@@ -45,7 +44,7 @@ public class OrderControlBlock extends AbstractControlBlock {
         if (getTable().getValue() != null) {
             AbstractEditWindow mw = new OrderEditWindow(this, (Order)getTable().getValue(), " -> Редактировать");
             
-            mw.setMode(true);
+            mw.setEditMode(true);
             this.getUI().addWindow(mw);                
         }
     }
@@ -68,8 +67,8 @@ public class OrderControlBlock extends AbstractControlBlock {
         getTable().setWidth("65em");
         getTable().addContainerProperty("Клиент", String.class, null);
         getTable().addContainerProperty("Описание",  String.class, null);
-        getTable().addContainerProperty("Дата создания",  Date.class, null);
-        getTable().addContainerProperty("Дата окончания",  Date.class, null);
+        getTable().addContainerProperty("Дата создания",  String.class, null);
+        getTable().addContainerProperty("Дата окончания",  String.class, null);
         getTable().addContainerProperty("Стоимость",  Float.class, null);
         getTable().addContainerProperty("Статус",  String.class, null);
         
@@ -102,7 +101,6 @@ public class OrderControlBlock extends AbstractControlBlock {
         });
         
         filterLayout.addComponents(clientFilter, statusSelectFilter, descriptionFilter);
-        
         getGeneralPanel().addComponents(filterLayout, okFilterButton);
     }
     
@@ -112,16 +110,16 @@ public class OrderControlBlock extends AbstractControlBlock {
         AbstractElement client = clientDAO.getElementById(((Order)item).getClientsId());
         
         if (client != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            
             getTable().addItem(new Object[]{
                 client.toString(),
                 ((Order)item).getDescription(),
-                new Date(((Order)item).getStartDate()),
-                new Date(((Order)item).getEndDate()),
+                dateFormat.format(new Date(((Order)item).getStartDate())),
+                dateFormat.format(new Date(((Order)item).getEndDate())),
                 ((Order)item).getPrice(),
                 new OrderStatus(((Order)item).getStatus()).toString()}, 
                     item);
-        } else {
-            new Notification("ВНИМАНИЕ!", "Не удалось найти клиента", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
-        }
+        } 
     }
 }

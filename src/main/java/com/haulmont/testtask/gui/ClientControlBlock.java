@@ -7,7 +7,7 @@ import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 
 /**
- *
+ * Класс блока управления элементами модели "Клиент"
  * @author Kiryakov Andrey
  */
 public class ClientControlBlock extends AbstractControlBlock {
@@ -20,7 +20,7 @@ public class ClientControlBlock extends AbstractControlBlock {
     public void addButtonAction() {
        AbstractEditWindow mw = new ClientEditWindow(this, new Client(), " -> Добавить");
        
-       mw.setMode(false);
+       mw.setEditMode(false);
        this.getUI().addWindow(mw);
     }
 
@@ -29,7 +29,7 @@ public class ClientControlBlock extends AbstractControlBlock {
         if (getTable().getValue() != null) {
             AbstractEditWindow mw = new ClientEditWindow(this, (Client)getTable().getValue(), " -> Редактировать");
             
-            mw.setMode(true);
+            mw.setEditMode(true);
             this.getUI().addWindow(mw);                
         }
     }
@@ -43,13 +43,14 @@ public class ClientControlBlock extends AbstractControlBlock {
             if (clientDAO.delete(client.getId())) {
                 getTable().removeItem(client);
             } else {
-                new Notification("ВНИМАНИЕ!", "Не удалось удалить клиента", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
+                new Notification("ВНИМАНИЕ!", "Не удалось удалить клиента.<br />"
+                        + "Возможно у данного клиента имеются заказы.", Notification.TYPE_ERROR_MESSAGE, true).show(Page.getCurrent());
             }
         }
     }
     
     private void init() {
-        getTable().setWidth("25em");
+        getTable().setWidth("30em");
         getTable().addContainerProperty("ФИО", String.class, null);
         getTable().addContainerProperty("Телефон",  String.class, null);
     }

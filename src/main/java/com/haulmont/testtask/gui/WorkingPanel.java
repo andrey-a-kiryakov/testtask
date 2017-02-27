@@ -2,8 +2,9 @@ package com.haulmont.testtask.gui;
 
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-/*
- * Класс основной рабочей панели c вертикальным выравниванием и заголовком
+/**
+ * Класс панели c вертикальным выравниванием и заголовком
+ * Используется во многих GUI элементах
  * @author Kiryakov Andrey
  */
 public class WorkingPanel extends VerticalLayout{

@@ -1,7 +1,5 @@
 package com.haulmont.testtask.dao;
 
-import com.vaadin.server.Page;
-import com.vaadin.ui.Notification;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
