@@ -1,3 +1,7 @@
-/src/main/webapp/
-/pom.xml
 /src/main/resources/
+/target/
+.idea
+target/
+*.iml
+*.ipr
+*.iws

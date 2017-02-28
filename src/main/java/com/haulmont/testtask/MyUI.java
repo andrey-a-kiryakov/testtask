@@ -2,7 +2,6 @@ package com.haulmont.testtask;
 
 import com.haulmont.testtask.dao.AbstractDAO;
 import com.haulmont.testtask.dao.ClientDAO;
-import com.haulmont.testtask.dao.HSQLDBConnection;
 import com.haulmont.testtask.dao.HSQLDBDriverLoader;
 import com.haulmont.testtask.dao.OrderDAO;
 import com.haulmont.testtask.gui.ClientControlBlock;
@@ -43,18 +42,17 @@ public class MyUI extends UI {
     
         hLayout.addComponents(clientsPanel, ordersPanel);
         hLayout.setSpacing(true);
-        vLayout.addComponents(new Label("<div align=center><h2><b>&nbsp;&nbsp;&nbsp;Автомастерская</b> - система ввода и отображения информации о заказах</h2></div>",ContentMode.HTML), hLayout);
+        vLayout.addComponents(new Label("<div align=center><h2><b>&nbsp;&nbsp;&nbsp;Автомастерская</b> - система ввода и отображения информации о заказах</h2></div>",
+                ContentMode.HTML), hLayout);
         
         setContent(vLayout);
         
         HSQLDBDriverLoader.getInstance();
         ClientDAO clientDAO = new ClientDAO();
         OrderDAO orderDAO = new OrderDAO();
-        HSQLDBConnection c = new HSQLDBConnection();
-        AbstractDAO.createProjectsTables();
+        //AbstractDAO.createProjectsTables();
         clientControlBlock.addItemsToTable(clientDAO.getAll());
         orderControlBlock.addItemsToTable(orderDAO.getAll());
-        
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.List;
 
 /*
- * Абстрактный класс-обертка для DAO-классов
+ * Абстрактный класс-предок для DAO-классов
  * @author Andrey Kiryakov
  */
 public abstract class AbstractDAO {

@@ -33,7 +33,7 @@ public class OrderDAO extends AbstractDAO{
                 }    
              }
         } catch (SQLException e) {
-            
+            System.out.println(e.getMessage());
         }
         return resultList;
     }
@@ -59,6 +59,7 @@ public class OrderDAO extends AbstractDAO{
                 }    
              }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -77,6 +78,7 @@ public class OrderDAO extends AbstractDAO{
                 }    
              }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -108,6 +110,7 @@ public class OrderDAO extends AbstractDAO{
                 }    
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -148,7 +151,7 @@ public class OrderDAO extends AbstractDAO{
                 }    
              }
         } catch (SQLException e) {
-            
+            System.out.println(e.getMessage());  
         }
         return resultList; 
     }

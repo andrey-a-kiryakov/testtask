@@ -34,6 +34,7 @@ public class ClientDAO extends AbstractDAO{
                 }    
              }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return resultList;
     }
@@ -55,6 +56,7 @@ public class ClientDAO extends AbstractDAO{
                 }    
              }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -77,6 +79,7 @@ public class ClientDAO extends AbstractDAO{
                 }    
              }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -95,6 +98,7 @@ public class ClientDAO extends AbstractDAO{
                 }    
              }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -123,6 +127,7 @@ public class ClientDAO extends AbstractDAO{
                 }    
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
         return true;

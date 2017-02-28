@@ -1,7 +1,7 @@
 package com.haulmont.testtask.model;
 
 /**
- * Абстрактный класс элементов модели
+ * Абстрактный класс-предок элементов модели
  * @author Kiryakov Andrey 
  */
 public abstract class AbstractElement {

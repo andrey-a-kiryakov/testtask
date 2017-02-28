@@ -3,7 +3,7 @@ package com.haulmont.testtask.dao;
 import java.sql.Connection;
 
 /**
- * Абстрактный класс-обертка для клсассов соединений с БД
+ * Абстрактный класс-предок для клсассов соединений с БД
  * @author  Andrey Kiryakov
  */
 public abstract class AbstractConnection {

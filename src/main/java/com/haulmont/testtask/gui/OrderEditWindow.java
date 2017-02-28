@@ -13,6 +13,7 @@ import com.vaadin.ui.DateField;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -70,12 +71,12 @@ public class OrderEditWindow extends AbstractEditWindow {
             } else {
                 if (orderDao.update(order)) {
                     Item item = getControlBlock().getTable().getItem(getControlBlock().getTable().getValue());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
                     
                     item.getItemProperty("Клиент").setValue(clientSelect.getValue().toString());
                     item.getItemProperty("Описание").setValue(order.getDescription());
-                    item.getItemProperty("Дата создания").setValue(new Date(order.getStartDate()));
-                    item.getItemProperty("Дата окончания").setValue(new Date(order.getEndDate()));
-                    item.getItemProperty("Дата окончания").setValue(new Date(order.getEndDate()));
+                    item.getItemProperty("Дата создания").setValue(dateFormat.format(new Date(order.getStartDate())));
+                    item.getItemProperty("Дата окончания").setValue(dateFormat.format(new Date(order.getEndDate())));
                     item.getItemProperty("Стоимость").setValue(order.getPrice());
                     item.getItemProperty("Статус").setValue(new OrderStatus(order.getStatus()).toString());
                     
